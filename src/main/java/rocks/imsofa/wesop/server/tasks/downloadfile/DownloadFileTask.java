@@ -1,16 +1,5 @@
 package rocks.imsofa.wesop.server.tasks.downloadfile;
 
-import com.example.lendle.esopserver.tasks.downloadfile.*;
-import android.content.Intent;
-import android.os.AsyncTask;
-
-import com.example.lendle.esopserver.Constants;
-import com.example.lendle.esopserver.DebugUtils;
-import com.example.lendle.esopserver.GlobalContext;
-import com.example.lendle.esopserver.activities.LoadingActivity;
-import com.example.lendle.esopserver.util.CRCUtil;
-import com.example.lendle.esopserver.util.PathUtil;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -22,11 +11,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import rocks.imsofa.wesop.server.AsyncTask;
+import rocks.imsofa.wesop.server.Constants;
+import rocks.imsofa.wesop.server.DebugUtils;
+import rocks.imsofa.wesop.server.GlobalContext;
+import rocks.imsofa.wesop.server.util.CRCUtil;
+import rocks.imsofa.wesop.server.util.PathUtil;
 
 /**
  * Created by lendle on 2015/1/2.
  */
-public class DownloadFileTask extends AsyncTask<DownloadFileArg, Void, Void> {
+public class DownloadFileTask extends AsyncTask<DownloadFileArg, Void> {
     private DownloadFileArg param=null;
     private File finalFile=null;
     private boolean alwaysDownload=false;
@@ -111,15 +106,17 @@ public class DownloadFileTask extends AsyncTask<DownloadFileArg, Void, Void> {
                 }
             }
         }
-
+        //TODO: implement a way to open file
         if(params[0].getPage()==1) {
+            /*
             Intent loading = new Intent(param.getContext(), LoadingActivity.class);
             loading.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             param.getContext().getApplicationContext().startActivity(loading);
+            */
         }
         InputStream input= null;
         OutputStream output=null;
-        DebugUtils.log("download for "+GlobalContext.MACHINE_ID+" from: "+params[0].getUrl(), false);
+        DebugUtils.log("download for "+GlobalContext.MACHINE_ID+" from: "+params[0].getUrl());
 
         int part=0;
         String fileString = PathUtil.getSOPFileFolder().getAbsolutePath() + "/" + params[0].getSaveFileName();

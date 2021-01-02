@@ -11,7 +11,7 @@ import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
 /**
  * Created by lendle on 2014/11/24.
  */
-public class BackHomeCommandExecutor implements CommandExecutor{
+public class BackHomeCommandExecutor extends AbstractCommandExecutor{
 
     
     private DownloadFileArg currentDownloadingArg=null;
@@ -19,11 +19,11 @@ public class BackHomeCommandExecutor implements CommandExecutor{
     @Override
     public boolean canHandle(Command command) {
         //Log.e("com.example.lendle.esopserver", command.getGroupName()+":"+command.getName());
-        return command.getGroupName().equals("rocks.imsofa.wesop.server.commands") && command.getName().equals("home");
+        return command.getGroupName().equals("com.example.lendle.esopserver.commands") && command.getName().equals("home");
     }
 
     @Override
-    public synchronized Object execute(Command command) throws Exception {
+    public synchronized Object _execute(Command command) throws Exception {
         try {
             currentDownloadingArg=GlobalContext.currentDownloadingArg;
 
@@ -38,8 +38,8 @@ public class BackHomeCommandExecutor implements CommandExecutor{
                 GlobalContext.readerProcess.destroy();
                 GlobalContext.readerProcess=null;
             }
-            
-            DebugUtils.log(BackHomeCommandExecutor.class, "home!");
+            //TODO: implement a way to back to home screen (close and hide all opened applications)
+
             if(GlobalContext.currentDownloadingArg!=null) {
                 new Thread() {
                     public void run() {
@@ -50,15 +50,14 @@ public class BackHomeCommandExecutor implements CommandExecutor{
                             finishInput.close();
                             //GlobalContext.delayBackUntil=-1;
                         } catch (Exception e) {
-                            DebugUtils.log(BackHomeCommandExecutor.class, 
+                            DebugUtils.log(
                                     Level.SEVERE, "fail to report terminated status");
                         }
                     }
                 }.start();
             }
         }catch(Exception e){
-            DebugUtils.log(BackHomeCommandExecutor.class, 
-                                    Level.SEVERE, e.getMessage());
+            throw e;
         }
         return null;
     }

@@ -9,7 +9,7 @@ import rocks.imsofa.wesop.server.util.PathUtil;
 /**
  * Created by lendle on 2014/11/24.
  */
-public class FileCopyCommandExecutor implements CommandExecutor{
+public class FileCopyCommandExecutor extends AbstractCommandExecutor{
 
     public FileCopyCommandExecutor() {
     }
@@ -17,11 +17,11 @@ public class FileCopyCommandExecutor implements CommandExecutor{
     @Override
     public boolean canHandle(Command command) {
         //Log.e("com.example.lendle.esopserver", command.getGroupName()+":"+command.getName());
-        return command.getGroupName().equals("rocks.imsofa.wesop.server.commands") && command.getName().equals("copyFile");
+        return command.getGroupName().equals("com.example.lendle.esopserver.commands") && command.getName().equals("copyFile");
     }
 
     @Override
-    public Object execute(Command command) throws Exception {
+    public Object _execute(Command command) throws Exception {
         String base64= (String) command.getParams().get("file");
         String fileName= (String) command.getParams().get("fileName");
         String fileDirectory= (String) command.getParams().get("fileDirectory");

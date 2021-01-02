@@ -45,5 +45,10 @@
             <version>4.5.12</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.15</version>
+        </dependency>
     </dependencies>
 </project>

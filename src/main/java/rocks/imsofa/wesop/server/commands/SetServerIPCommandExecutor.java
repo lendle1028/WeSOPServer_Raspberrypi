@@ -1,10 +1,8 @@
 package rocks.imsofa.wesop.server.commands;
 
-import com.example.lendle.esopserver.commands.*;
-import com.example.lendle.esopserver.DebugUtils;
-import com.example.lendle.esopserver.GlobalContext;
-
 import java.net.URL;
+import rocks.imsofa.wesop.server.DebugUtils;
+import rocks.imsofa.wesop.server.GlobalContext;
 
 /**
  * Created by lendle on 2015/6/15.

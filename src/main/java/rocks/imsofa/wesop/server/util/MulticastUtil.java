@@ -26,7 +26,7 @@ public class MulticastUtil {
                     //DebugUtils.log(dataString);
                 }catch(Exception e){
                     GlobalContext.helloFailed=true;
-                    DebugUtils.log(MulticastUtil.class, Level.SEVERE, e + ":" + e.getMessage(), false);
+                    DebugUtils.log(Level.SEVERE, e + ":" + e.getMessage(), false);
                 }
             }
         }.start();

@@ -28,7 +28,7 @@ public class GlobalContext {
         }
     }
     
-    
+    public static Server server=null;
     private static long syncTick=0;
 
     public static String IP=null;
@@ -56,6 +56,7 @@ public class GlobalContext {
     public static long flipWaitingTime=2000;//flip waiting time when pageCount reach a certain value
     
     public static Process readerProcess=null;
+    public static DebugUtils.UILogger uILogger=null;
 
     /**
      * syncTick is used to sync async state broadcast

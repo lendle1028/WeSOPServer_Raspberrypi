@@ -33,7 +33,7 @@ public class SequentialTaskThread extends Thread implements TaskExecutionCallbac
                     Task task = this.queue.remove(0);
                     task.execute(this);
                 }catch(Throwable e){
-                    DebugUtils.log(SequentialTaskThread.class, Level.SEVERE, e+":"+e.getMessage());
+                    DebugUtils.log(Level.SEVERE, e+":"+e.getMessage());
                 }
             }
         }
