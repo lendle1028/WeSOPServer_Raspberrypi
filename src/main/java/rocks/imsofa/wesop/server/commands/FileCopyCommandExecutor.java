@@ -4,6 +4,7 @@ package rocks.imsofa.wesop.server.commands;
 import java.io.File;
 import java.io.FileOutputStream;
 import org.apache.commons.codec.binary.Base64;
+import rocks.imsofa.wesop.server.DebugUtils;
 import rocks.imsofa.wesop.server.util.PathUtil;
 
 /**
@@ -37,6 +38,7 @@ public class FileCopyCommandExecutor extends AbstractCommandExecutor{
         FileOutputStream output=new FileOutputStream(targetFile);
         output.write(base64Bytes);
         output.close();
+        DebugUtils.log("target file: "+targetFile.getAbsolutePath());
         return null;
     }
 }

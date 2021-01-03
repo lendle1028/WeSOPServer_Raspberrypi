@@ -47,7 +47,7 @@ public class Server {
         //TODO: implement command executors
         //this.commandDispatcher.addExecutor(new TestOpenPDFCommandExecutor(context));
         //this.commandDispatcher.addExecutor(new TestFileCopyCommandExecutor(context));
-        this.commandDispatcher.addExecutor(new OpenPDFCommandExecutor());
+//        this.commandDispatcher.addExecutor(new OpenPDFCommandExecutor());
         this.commandDispatcher.addExecutor(new FileCopyCommandExecutor());
 //        this.commandDispatcher.addExecutor(new PDFFlipCommandExecutor());
         this.commandDispatcher.addExecutor(new TerminalCommandExecutor());

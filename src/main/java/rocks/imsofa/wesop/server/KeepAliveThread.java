@@ -27,7 +27,8 @@ public class KeepAliveThread extends Thread{
                     finishInput.close();
                     //GlobalContext.delayBackUntil=-1;
                 } catch (Exception e) {
-                    DebugUtils.log("fail to issue keepAlive Packet");
+                    //DebugUtils.log("fail to issue keepAlive Packet");
+                    DebugUtils.log(e, false);
                 }
             }catch(Exception e){
                 DebugUtils.log(e+":"+e.getMessage());

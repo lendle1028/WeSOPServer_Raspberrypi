@@ -8,12 +8,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import org.apache.commons.io.IOUtils;
 import rocks.imsofa.wesop.server.Constants;
 import rocks.imsofa.wesop.server.commands.Command;
 import rocks.imsofa.wesop.server.commands.CommandParser;
 
 public class TesterController {
+    @FXML
+    private TextField textBase64;
+
+    @FXML
+    private TextField textFileName;
+
+    @FXML
+    void onFileCopyGOButtonClicked(ActionEvent event) {
+        final Command command = new Command();
+        command.setGroupName("com.example.lendle.esopserver.commands");
+        command.setName("copyFile");
+        Map params=new HashMap<String, Object>();
+        params.put("file", textBase64.getText());
+        params.put("fileName", textFileName.getText());
+        command.setParams(params);
+        this.sendCommand(command);
+    }
 
     @FXML
     void onTestGOButtonClicked(ActionEvent event) {

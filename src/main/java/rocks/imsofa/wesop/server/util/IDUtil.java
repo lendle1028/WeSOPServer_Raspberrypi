@@ -29,7 +29,7 @@ public class IDUtil {
         } else {
             //load the stored id from user folder
             try {
-                File idFile = new File(PathUtil.getSOPFileFolder(), ".id");
+                File idFile = new File(PathUtil.getSOPHomeFolder(), ".id");
                 if (!idFile.exists()) {
 
                     //create the id file
