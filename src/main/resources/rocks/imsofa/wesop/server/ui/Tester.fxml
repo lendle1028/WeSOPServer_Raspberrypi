@@ -13,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocks.imsofa.wesop.server.ui.TesterController">
     <center>
-        <TabPane prefHeight="311.0" prefWidth="465.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane prefHeight="300.0" prefWidth="352.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
                 <Tab text="Test">
                     <content>
@@ -60,7 +60,109 @@
                         </javafx.scene.layout.GridPane>
                     </content>
                 </Tab>
-                
+                <Tab text="TerminalCommand">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onTerminalCommandGOButtonClicked" text="GO" GridPane.rowIndex="5" />
+                        <Label text="Command:" GridPane.rowIndex="4" />
+                        <TextField fx:id="textTerminalCommand" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
+                <Tab text="SetServerIP">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onSetServerIPGOButtonClicked" text="GO" GridPane.rowIndex="7" />
+                        <Label text="IP:" GridPane.rowIndex="4" />
+                        <TextField fx:id="textServerIP" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label text="KeepAlive URL:" GridPane.rowIndex="6" />
+                        <TextField fx:id="textKeepAliveURL" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
+                <Tab text="BackHome">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onBackHomeGOButtonClicked" text="GO" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
+                <Tab text="Show Message">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                        <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onShowMessageGOButtonClicked" text="GO" GridPane.rowIndex="2" />
+                        <Label text="Title:" />
+                        <TextField fx:id="textMessageTitle" GridPane.columnIndex="1" />
+                        <Label text="Message:" GridPane.rowIndex="1" />
+                        <TextField fx:id="textMessage" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </center>
