@@ -50,5 +50,15 @@
             <artifactId>controlsfx</artifactId>
             <version>8.40.15</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.15.v20190215</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>9.4.15.v20190215</version>
+        </dependency>
     </dependencies>
 </project>

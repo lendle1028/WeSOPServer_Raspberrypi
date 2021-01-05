@@ -163,6 +163,56 @@
                         </javafx.scene.layout.GridPane>
                     </content>
                 </Tab>
+                <Tab text="Set Status">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                        <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onSetStatusGOButtonClicked" text="GO" GridPane.rowIndex="2" />
+                        <Label text="Status:" />
+                        <TextField fx:id="textStatus" GridPane.columnIndex="1" />
+                        <Label text="syncTick::" GridPane.rowIndex="1" />
+                        <TextField fx:id="textSyncTick" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
+                <Tab text="Open Remote">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                        <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" text="GO" GridPane.rowIndex="2" />
+                        <Label text="Status:" />
+                        <TextField GridPane.columnIndex="1" />
+                        <Label text="syncTick::" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </center>
