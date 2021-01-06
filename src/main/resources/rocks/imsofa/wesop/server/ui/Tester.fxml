@@ -201,7 +201,7 @@
                         <RowConstraints />
                             </rowConstraints>
                             <children>
-                                <Button mnemonicParsing="false" text="GO" GridPane.rowIndex="2" />
+                                <Button mnemonicParsing="false" onAction="#onOpenRemoteFileGOButtonClicked" text="GO" GridPane.rowIndex="2" />
                         <Label text="Status:" />
                         <TextField GridPane.columnIndex="1" />
                         <Label text="syncTick::" GridPane.rowIndex="1" />

@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 import rocks.imsofa.wesop.server.Constants;
 import rocks.imsofa.wesop.server.commands.Command;
 import rocks.imsofa.wesop.server.commands.CommandParser;
+import rocks.imsofa.wesop.server.ui.server.OpenRemoteFileAction;
 
 public class TesterController {
     @FXML
@@ -41,6 +42,11 @@ public class TesterController {
 
     @FXML
     private TextField textSyncTick;
+    
+    @FXML
+    void onOpenRemoteFileGOButtonClicked(ActionEvent event) {
+        OpenRemoteFileAction openRemoteFileAction=new OpenRemoteFileAction();
+    }
     
     @FXML
     void onSetStatusGOButtonClicked(ActionEvent event) {

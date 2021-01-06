@@ -29,7 +29,7 @@ public class DownloadingSessionManager {
     private Map<String, DownloadingSession> downloadingStates=new HashMap<>();
     private Map<String, DownloadingSession> failedDownloadingStates=new HashMap<>();
     
-    public DownloadingSession startDownloadSession(File file, TaskDetailInstance instance) throws Exception{
+    public DownloadingSession startDownloadSession(File file) throws Exception{
         String sessionId=this.getNextSessionId();
         File folder=new File(Global.servletContext.getRealPath("/WEB-INF/downloading"), sessionId);
         if(!folder.exists() || !folder.isDirectory()){
@@ -43,12 +43,31 @@ public class DownloadingSessionManager {
         state.setNumTotalParts(files.size());
         state.setOriginalFile(file);
         state.setPartFolder(folder);
-        state.setTaskDetailInstanceId(instance.getId());
-        state.setPlayerId(instance.getPlayerId());
+        
         downloadingStates.put(sessionId, state);
         return state;
     }
     
+//    public DownloadingSession startDownloadSession(File file, TaskDetailInstance instance) throws Exception{
+//        String sessionId=this.getNextSessionId();
+//        File folder=new File(Global.servletContext.getRealPath("/WEB-INF/downloading"), sessionId);
+//        if(!folder.exists() || !folder.isDirectory()){
+//            folder.mkdirs();
+//        }
+//        List<File> files=this.createDownloadParts(folder, file);
+//        DownloadingSession state=new DownloadingSession();
+//        state.setSessionId(sessionId);
+//        state.setCurrentPartIndex(-1);
+//        state.setNumFinishedParts(0);
+//        state.setNumTotalParts(files.size());
+//        state.setOriginalFile(file);
+//        state.setPartFolder(folder);
+//        state.setTaskDetailInstanceId(instance.getId());
+//        state.setPlayerId(instance.getPlayerId());
+//        downloadingStates.put(sessionId, state);
+//        return state;
+//    }
+//    
     public File getChunkFile(String sessionId, int index){
         File folder=new File(Global.servletContext.getRealPath("/WEB-INF/downloading"), sessionId);
         return new File(folder, ""+index);
