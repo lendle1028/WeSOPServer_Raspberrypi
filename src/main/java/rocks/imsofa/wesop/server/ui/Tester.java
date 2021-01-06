@@ -20,6 +20,12 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import rocks.imsofa.wesop.server.ui.server.DownloadingSessionManager;
+import rocks.imsofa.wesop.server.ui.server.FileDownloadServlet;
+import rocks.imsofa.wesop.server.ui.server.Global;
+import rocks.imsofa.wesop.server.ui.server.PlayStartReportServlet;
+import rocks.imsofa.wesop.server.ui.server.TaskDetailInstanceQueue;
+import rocks.imsofa.wesop.server.ui.server.TerminatedReportServlet;
 
 /**
  *
@@ -33,8 +39,10 @@ public class Tester extends Application {
     public void start(Stage primaryStage) {
         try {
             server = new Server();
+            Global.downloadingSessionManager=new DownloadingSessionManager();
+            Global.taskDetailInstanceQueue=new TaskDetailInstanceQueue();
             ServerConnector connector = new ServerConnector(server);
-            connector.setPort(8090);
+            connector.setPort(8080);
             server.setConnectors(new Connector[]{connector});
             ServletContextHandler ctx = new ServletContextHandler();
             ctx.setContextPath("/");
@@ -43,12 +51,15 @@ public class Tester extends Application {
             ServletHolder holderPwd = new ServletHolder("default", defaultServlet);
             holderPwd.setInitParameter("resourceBase", "./");
             ctx.addServlet(holderPwd, "/*");
+            ctx.addServlet(FileDownloadServlet.class, "/download");
+            ctx.addServlet(TerminatedReportServlet.class, "/terminatedReport");
+            ctx.addServlet(PlayStartReportServlet.class, "/playStartReport");
             server.setHandler(ctx);
             server.start();
 
             FXMLLoader fxmlLoader = new FXMLLoader(Tester.class.getResource("Tester.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-
+            
             primaryStage.setTitle("WeSOP Tester");
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
