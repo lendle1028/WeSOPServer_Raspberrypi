@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 import rocks.imsofa.wesop.server.Constants;
 import rocks.imsofa.wesop.server.commands.Command;
 import rocks.imsofa.wesop.server.commands.CommandParser;
+import rocks.imsofa.wesop.server.ui.server.Global;
 import rocks.imsofa.wesop.server.ui.server.OpenRemoteFileAction;
 
 public class TesterController {
@@ -45,7 +46,12 @@ public class TesterController {
     
     @FXML
     void onOpenRemoteFileGOButtonClicked(ActionEvent event) {
-        OpenRemoteFileAction openRemoteFileAction=new OpenRemoteFileAction();
+        try {
+            OpenRemoteFileAction openRemoteFileAction=new OpenRemoteFileAction();
+            openRemoteFileAction.execute(Global.servletContext, "127.0.0.1", Constants.SERVER_PORT, "review.pdf", 1, false);
+        } catch (Exception ex) {
+            Logger.getLogger(TesterController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML

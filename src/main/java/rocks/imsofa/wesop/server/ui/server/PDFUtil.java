@@ -34,6 +34,7 @@ public class PDFUtil {
             PdfContentByte cb = writer.getDirectContent();
             for(int page : pages){
                 document.newPage();
+                System.out.println(writer+":"+inputPDF);
                 writer.addPageDictEntry(PdfName.ROTATE, inputPDF.getPageN(page).getAsNumber(PdfName.ROTATE));
                 PdfImportedPage importedPage=writer.getImportedPage(inputPDF, page);
                 cb.addTemplate(importedPage, 0, 0);

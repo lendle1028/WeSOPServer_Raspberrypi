@@ -45,6 +45,7 @@ public class Tester extends Application {
             connector.setPort(8080);
             server.setConnectors(new Connector[]{connector});
             ServletContextHandler ctx = new ServletContextHandler();
+            Global.servletContext=ctx.getServletContext();
             ctx.setContextPath("/");
 
             DefaultServlet defaultServlet = new DefaultServlet();

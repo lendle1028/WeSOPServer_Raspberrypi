@@ -3,10 +3,9 @@ package rocks.imsofa.wesop.server;
 
 import java.io.File;
 import java.net.URL;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
+import javax.servlet.ServletContext;
 import rocks.imsofa.wesop.server.services.SequentialTaskThread;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
 import rocks.imsofa.wesop.server.util.IDUtil;
