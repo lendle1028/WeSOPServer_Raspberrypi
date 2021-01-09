@@ -1,5 +1,6 @@
 package rocks.imsofa.wesop.server.commands;
 
+import java.awt.Desktop;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -98,7 +99,10 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
                     DownloadFileCallback downloadFileCallback=new DownloadFileCallback() {
                         public void process(DownloadFileArg arg, final File file) throws Exception {
                             try {
-                                //TODO: implement a way to download and open a file with system default viewer applications
+                                //TODO: (done)implement a way to download and open a file with system default viewer applications
+                                if(arg.isValid()){
+                                    Desktop.getDesktop().open(file);
+                                }
 //                                if(arg.isValid()) {
 //                                    DebugUtils.log("download complete, executing......");
 //                                    DebugUtils.log("OpenRemoteFileCommandExecutor: " + fileName);

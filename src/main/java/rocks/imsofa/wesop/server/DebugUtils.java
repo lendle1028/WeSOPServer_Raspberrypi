@@ -39,7 +39,7 @@ public class DebugUtils {
     }
     
     public static void log(Throwable e, boolean toServer){
-        String stackTrace=Arrays.deepToString(e.getStackTrace());
+        String stackTrace=Arrays.toString(e.getStackTrace());
         log(Level.SEVERE, stackTrace, toServer);
     }
     

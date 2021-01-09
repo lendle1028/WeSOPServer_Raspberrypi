@@ -20,8 +20,25 @@ public abstract class AsyncTask<ARG, RET> {
     protected abstract RET doInBackground(ARG... params);
     
     /**
-     * TODO: implement a custom AsyncTask
+     * TODO: (done)implement a custom AsyncTask
      */
     public void execute(ARG... params){
+        GlobalContext.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                onPreExecute();
+                RET ret=doInBackground(params);
+                onPostExecute(ret);
+            }
+        });
+//        Thread t=new Thread(){
+//            public void run(){
+//                onPreExecute();
+//                RET ret=doInBackground(params);
+//                onPostExecute(ret);
+//            }
+//        };
+//        t.setDaemon(true);
+//        t.start();
     }
 }

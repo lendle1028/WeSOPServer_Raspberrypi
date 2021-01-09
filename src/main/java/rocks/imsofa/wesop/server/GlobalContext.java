@@ -3,9 +3,9 @@ package rocks.imsofa.wesop.server;
 
 import java.io.File;
 import java.net.URL;
+import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import rocks.imsofa.wesop.server.services.SequentialTaskThread;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
 import rocks.imsofa.wesop.server.util.IDUtil;
@@ -58,6 +58,7 @@ public class GlobalContext {
     
     public static Process readerProcess=null;
     public static DebugUtils.UILogger uILogger=null;
+    public static ExecutorService executorService=null;
 
     /**
      * syncTick is used to sync async state broadcast

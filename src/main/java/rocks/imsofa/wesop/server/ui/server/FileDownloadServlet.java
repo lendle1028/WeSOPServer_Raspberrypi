@@ -69,8 +69,8 @@ public class FileDownloadServlet extends HttpServlet {
             } finally {
                 out.close();
             }
-            TaskDetailInstance instance=Global.taskDetailInstanceQueue.getTaskDetailInstance(session.getTaskDetailInstanceId());
-            instance.setCurrentStatusValidThrough(instance.getCurrentStatusValidThrough()+Constants.PER_MEGA_DOWNLOAD_TIMEOUT);
+            //TaskDetailInstance instance=Global.taskDetailInstanceQueue.getTaskDetailInstance(session.getTaskDetailInstanceId());
+            //instance.setCurrentStatusValidThrough(instance.getCurrentStatusValidThrough()+Constants.PER_MEGA_DOWNLOAD_TIMEOUT);
         }else{
             //the session doesn't exist or is cancelled
             try{

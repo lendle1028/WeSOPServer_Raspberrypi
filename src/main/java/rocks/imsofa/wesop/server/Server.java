@@ -5,6 +5,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Executors;
+import rocks.imsofa.wesop.server.services.SequentialTaskThread;
 
 /**
  * Created by lendle on 2014/10/20.111
@@ -94,6 +96,9 @@ public class Server {
         serverSocket = new ServerSocket(Constants.SERVER_PORT, 10);
         serverThread = new ServerThread();
         serverThread.start();
+        GlobalContext.sequentialTaskThread=new SequentialTaskThread();
+        GlobalContext.sequentialTaskThread.start();
+        GlobalContext.executorService=Executors.newCachedThreadPool();
     }
 
     public void stopServers() throws IOException, InterruptedException {
@@ -119,6 +124,8 @@ public class Server {
         if(deleteFilesBroadCastReceiverThread!=null){
             deleteFilesBroadCastReceiverThread.shutdown();
         }
+        GlobalContext.sequentialTaskThread.shutdown();
+        GlobalContext.executorService.shutdown();
         Thread.sleep(500);
     }
 
@@ -143,7 +150,7 @@ public class Server {
             while (running) try {
                 //DebugUtils.log("receiving");
                 final Socket client = serverSocket.accept();
-                new Thread(){
+                GlobalContext.executorService.execute(new Runnable(){
                     public void run(){
                         try {
                             String commandString=IOUtils.toString(client.getInputStream(), "utf-8");
@@ -155,7 +162,21 @@ public class Server {
                             DebugUtils.log(""+e+": "+e.getMessage());
                         }
                     }
-                }.start();
+                });
+//                new Thread(){
+//                    public void run(){
+//                        try {
+//                            String commandString=IOUtils.toString(client.getInputStream(), "utf-8");
+//                            DebugUtils.log("commandString: "+commandString);
+//                            Command command= CommandParser.toCommand(commandString);
+//                            Server.this.commandDispatcher.executeCommand(command);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                            DebugUtils.log(""+e+": "+e.getMessage());
+//                        }
+//                    }
+//                }.start();
+
 //                String commandString=IOUtils.toString(client.getInputStream(), "utf-8");
 //                DebugUtils.log("commandString: "+commandString);
 //                Command command= CommandParser.toCommand(commandString);

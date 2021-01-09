@@ -5,6 +5,7 @@
  */
 package rocks.imsofa.wesop.server.ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -67,6 +69,12 @@ public class Tester extends Application {
                 public void handle(WindowEvent event) {
                     try {
                         server.stop();
+                        File [] folders=new File(".").listFiles();
+                        for(File folder : folders){
+                            if(folder.isDirectory() && Character.isDigit(folder.getName().charAt(0)) && Character.isDigit(folder.getName().charAt(1))){
+                                FileUtils.deleteDirectory(folder);
+                            }
+                        }
                         System.exit(0);
                     } catch (Exception ex) {
                         Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);

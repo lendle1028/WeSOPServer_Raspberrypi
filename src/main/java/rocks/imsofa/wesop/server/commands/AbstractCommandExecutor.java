@@ -23,6 +23,7 @@ public abstract class AbstractCommandExecutor implements CommandExecutor{
             DebugUtils.log("after command: {"+command.getGroupName()+"}"+command.getName()+" is executed.");
         }catch(Exception e){
             DebugUtils.log(e, false);
+            e.printStackTrace();
             return null;
         }
         return ret;

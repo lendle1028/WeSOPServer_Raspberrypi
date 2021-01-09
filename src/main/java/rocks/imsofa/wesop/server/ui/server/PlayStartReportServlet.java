@@ -34,9 +34,9 @@ public class PlayStartReportServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        TaskDetailInstance instance=Global.taskDetailInstanceQueue.getTaskDetailInstance(Integer.valueOf(request.getParameter("instanceId")));
-        instance.setLastFlipped(new Date());
-        Logger.getLogger(this.getClass().getName()).info("playing: "+instance.getPlayerId());
+        //TaskDetailInstance instance=Global.taskDetailInstanceQueue.getTaskDetailInstance(Integer.valueOf(request.getParameter("instanceId")));
+        //instance.setLastFlipped(new Date());
+        //Logger.getLogger(this.getClass().getName()).info("playing: "+instance.getPlayerId());
 //        new SetTaskDetailInstanceStatusAction().execute(instance, PlayerStatus.PLAYING);
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
