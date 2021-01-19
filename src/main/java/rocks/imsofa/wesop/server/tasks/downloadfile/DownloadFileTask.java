@@ -106,7 +106,7 @@ public class DownloadFileTask extends AsyncTask<DownloadFileArg, Void> {
                 }
             }
         }
-        //TODO: implement a way to open file
+        //TODO: (done) implement a way to open file
         if(params[0].getPage()==1) {
             /*
             Intent loading = new Intent(param.getContext(), LoadingActivity.class);

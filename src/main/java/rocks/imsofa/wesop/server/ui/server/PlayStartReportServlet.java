@@ -39,7 +39,7 @@ public class PlayStartReportServlet extends HttpServlet {
         //Logger.getLogger(this.getClass().getName()).info("playing: "+instance.getPlayerId());
 //        new SetTaskDetailInstanceStatusAction().execute(instance, PlayerStatus.PLAYING);
 //        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
+//           
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
