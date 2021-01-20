@@ -8,7 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 /**
  * Created by lendle on 2014/11/24.
  */
-public class ShowMessageCommandExecutor extends AbstractCommandExecutor{
+public class ShowMessageCommandExecutor extends AbstractCommandExecutor {
 
     public ShowMessageCommandExecutor() {
     }
@@ -23,18 +23,18 @@ public class ShowMessageCommandExecutor extends AbstractCommandExecutor{
     public Object _execute(Command command) throws Exception {
         //TODO: implement a way to pop up message for end users
         //下面這個應該是答案
-        String title= (String) command.getParams().get("title");
-        String message= (String) command.getParams().get("message");
-        Platform.runLater(new Runnable(){
+        String title = (String) command.getParams().get("title");
+        String message = (String) command.getParams().get("message");
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(title);
+                alert.setContentText(message);
+                alert.showAndWait();
             }
         });
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
+
 //        Intent i = new Intent(context, ShowMessageActivity.class);
 //        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        i.putExtra("message", message);
