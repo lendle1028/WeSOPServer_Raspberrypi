@@ -9,8 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
-import org.controlsfx.control.ToggleSwitch;
 import rocks.imsofa.wesop.server.DebugUtils;
 import rocks.imsofa.wesop.server.GlobalContext;
 import rocks.imsofa.wesop.server.Server;
@@ -29,7 +29,7 @@ public class MainController implements DebugUtils.UILogger{
     private Button buttonShowServerStatus;
 
     @FXML
-    private ToggleSwitch toggleServer;
+    private ToggleButton toggleServer;
     
     @FXML
     private TextArea textLog;

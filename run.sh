@@ -1,2 +1,1 @@
-java -jar WeSOPServer-1.0-jar-with-dependencies.jar
-read -n 1 -p "Press any key to continue..."
+java -jar --module-path /usr/share/openjfx/lib --add-modules javafx.controls WeSOPServer-1.0-jar-with-dependencies.jar

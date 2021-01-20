@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import org.controlsfx.control.ToggleSwitch?>
+<?import javafx.scene.control.ToggleButton?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rocks.imsofa.wesop.server.ui.MainController">
     <center>
@@ -23,7 +23,7 @@
                                 </padding>
                             </Label>
                             <Button fx:id="buttonShowServerStatus" disable="true" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: red;" />
-                            <ToggleSwitch fx:id="toggleServer" layoutX="183.0" layoutY="67.0" onMouseClicked="#onToggleServer" AnchorPane.leftAnchor="183.0" />
+                            <ToggleButton fx:id="toggleServer" layoutX="183.0" layoutY="67.0" onMouseClicked="#onToggleServer" AnchorPane.leftAnchor="183.0" />
                         </children>
                     </javafx.scene.layout.AnchorPane>
                 </Tab>
