@@ -25,6 +25,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import rocks.imsofa.wesop.server.ui.server.DownloadingSessionManager;
 import rocks.imsofa.wesop.server.ui.server.FileDownloadServlet;
 import rocks.imsofa.wesop.server.ui.server.Global;
+import rocks.imsofa.wesop.server.ui.server.KeepAliveServlet;
 import rocks.imsofa.wesop.server.ui.server.PlayStartReportServlet;
 import rocks.imsofa.wesop.server.ui.server.TaskDetailInstanceQueue;
 import rocks.imsofa.wesop.server.ui.server.TerminatedReportServlet;
@@ -57,6 +58,7 @@ public class Tester extends Application {
             ctx.addServlet(FileDownloadServlet.class, "/download");
             ctx.addServlet(TerminatedReportServlet.class, "/terminatedReport");
             ctx.addServlet(PlayStartReportServlet.class, "/playStartReport");
+            ctx.addServlet(KeepAliveServlet.class, "/keepAlive");
             server.setHandler(ctx);
             server.start();
 
