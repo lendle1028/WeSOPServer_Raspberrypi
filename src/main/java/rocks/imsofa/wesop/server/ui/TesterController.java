@@ -92,10 +92,10 @@ public class TesterController {
     void onShowMessageGOButtonClicked(ActionEvent event) {
         final Command command = new Command();
         command.setGroupName("com.example.lendle.esopserver.commands");
-        command.setName("setStatus");
+        command.setName("showMessage");
         Map params = new HashMap<String, Object>();
-        params.put("status", textStatus.getText());
-        params.put("syncTick", textSyncTick.getText());
+        params.put("title", textMessageTitle.getText());
+        params.put("message", textMessage.getText());
         command.setParams(params);
         this.sendCommand(command);
     }
