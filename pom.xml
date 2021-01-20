@@ -16,8 +16,33 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>rocks.imsofa.wesop.server.ui.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>  Use 'netty-all' for 4.0 or above 
             <version>4.1.50.Final-20200513.053603-29</version>
