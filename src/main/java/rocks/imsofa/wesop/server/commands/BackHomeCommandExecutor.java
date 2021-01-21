@@ -1,9 +1,13 @@
 package rocks.imsofa.wesop.server.commands;
 
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.util.logging.Level;
+import org.apache.commons.lang.SystemUtils;
 import rocks.imsofa.wesop.server.DebugUtils;
 import rocks.imsofa.wesop.server.GlobalContext;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
@@ -39,6 +43,25 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                 GlobalContext.readerProcess=null;
             }
             //TODO: implement a way to back to home screen (close and hide all opened applications)
+//            String os = System.getProperty("os.name").toLowerCase();
+            Robot robot = new Robot();
+            if (SystemUtils.IS_OS_LINUX){
+                robot.keyPress(KeyEvent.VK_CONTROL);;
+                robot.keyPress(KeyEvent.VK_ALT);
+                robot.keyPress(KeyEvent.VK_D);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                robot.keyRelease(KeyEvent.VK_ALT);
+                robot.keyRelease(KeyEvent.VK_D);
+//                DebugUtils.log("this os is LINUX");
+            };
+            if (SystemUtils.IS_OS_WINDOWS){
+                robot.keyPress(KeyEvent.VK_WINDOWS);
+                robot.keyPress(KeyEvent.VK_D);
+                robot.keyRelease(KeyEvent.VK_WINDOWS);
+                robot.keyRelease(KeyEvent.VK_D);
+//                DebugUtils.log("this os is WINDOWS");
+            }
+//            DebugUtils.log(os);
 
             if(GlobalContext.currentDownloadingArg!=null) {
                 new Thread() {
@@ -49,6 +72,7 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                             IOUtils.readLines(finishInput);
                             finishInput.close();
                             //GlobalContext.delayBackUntil=-1;
+                            
                         } catch (Exception e) {
                             DebugUtils.log(
                                     Level.SEVERE, "fail to report terminated status");
