@@ -16,7 +16,7 @@ public class TestCommandExecutor extends AbstractCommandExecutor {
     public boolean canHandle(Command command) {
         return command.getGroupName().equals("com.example.lendle.esopserver.commands") && command.getName().equals("testCommand");
     }
-    //TODO: we should not need this
+    //TODO: (done)we should not need this
     @Override
     public Object _execute(Command command) throws Exception {
         DebugUtils.log(command.getName());

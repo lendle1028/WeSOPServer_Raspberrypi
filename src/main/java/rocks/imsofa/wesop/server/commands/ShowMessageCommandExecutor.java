@@ -11,7 +11,7 @@ import rocks.imsofa.wesop.server.DebugUtils;
 /**
  * Created by lendle on 2014/11/24.
  */
-public class ShowMessageCommandExecutor extends AbstractCommandExecutor{
+public class ShowMessageCommandExecutor extends AbstractCommandExecutor {
 
     public ShowMessageCommandExecutor() {
     }

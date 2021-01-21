@@ -61,7 +61,7 @@ public class FileDownloadServlet extends HttpServlet {
 //        }
 //        
             try (InputStream input = new FileInputStream(file)) {
-                /* TODO output your page here. You may use following sample code. */
+               
                 response.setHeader("sessionStatus", "ok");
                 response.setHeader("Content-Disposition", "attachment;filename=" + request.getParameter("file") + ";");
                 response.setHeader("Content-Length", "" + file.length());

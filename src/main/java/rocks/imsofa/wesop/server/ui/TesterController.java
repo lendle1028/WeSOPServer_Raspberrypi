@@ -3,18 +3,25 @@ package rocks.imsofa.wesop.server.ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.IOUtils;
 import rocks.imsofa.wesop.server.Constants;
 import rocks.imsofa.wesop.server.commands.Command;
 import rocks.imsofa.wesop.server.commands.CommandParser;
+import rocks.imsofa.wesop.server.ui.server.ClientStatusMonitoringThread;
 import rocks.imsofa.wesop.server.ui.server.Global;
 import rocks.imsofa.wesop.server.ui.server.OpenRemoteFileAction;
 
@@ -49,6 +56,14 @@ public class TesterController {
 
     @FXML
     private TextField textFilePath;
+    
+    @FXML
+    private VBox wisStatusContainer;
+    
+    @FXML
+    private ComboBox<String> comboboxClients;
+    
+    private ObservableList<String> clientIps=FXCollections.observableArrayList();
 
     @FXML
     void onFileChooserButtonClicked(ActionEvent event) {
@@ -92,10 +107,10 @@ public class TesterController {
     void onShowMessageGOButtonClicked(ActionEvent event) {
         final Command command = new Command();
         command.setGroupName("com.example.lendle.esopserver.commands");
-        command.setName("setStatus");
+        command.setName("showMessage");
         Map params = new HashMap<String, Object>();
-        params.put("status", textStatus.getText());
-        params.put("syncTick", textSyncTick.getText());
+        params.put("title", textMessageTitle.getText());
+        params.put("message", textMessage.getText());
         command.setParams(params);
         this.sendCommand(command);
     }
@@ -153,16 +168,27 @@ public class TesterController {
 
     protected void sendCommand(Command command) {
         try {
+            if(this.comboboxClients.getSelectionModel().getSelectedItem()==null){
+                return;
+            }
+            String clientIp=this.comboboxClients.getSelectionModel().getSelectedItem();
             if (command.getParams() == null) {
                 command.setParams(new HashMap<String, Object>());
             }
             command.getParams().put("syncTick", "" + System.currentTimeMillis());
-            Socket socket = new Socket("localhost", Constants.SERVER_PORT);
+            Socket socket = new Socket(clientIp, Constants.SERVER_PORT);
             socket.setSoTimeout(10000);
             IOUtils.write(CommandParser.fromCommand(command), socket.getOutputStream(), "utf-8");
             socket.close();
         } catch (IOException ex) {
             Logger.getLogger(TesterController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @FXML
+    public void initialize() {
+        comboboxClients.setItems(clientIps);
+        ClientStatusMonitoringThread clientStatusMonitoringThread=new ClientStatusMonitoringThread(clientIps, wisStatusContainer);
+        clientStatusMonitoringThread.start();
     }
 }
