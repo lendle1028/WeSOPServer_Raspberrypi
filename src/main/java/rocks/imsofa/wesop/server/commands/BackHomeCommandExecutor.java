@@ -1,6 +1,9 @@
 package rocks.imsofa.wesop.server.commands;
 
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -39,7 +42,22 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                 GlobalContext.readerProcess=null;
             }
             //TODO: implement a way to back to home screen (close and hide all opened applications)
-
+//            DebugUtils.log("Notepad should now open.");
+//            File dir = new File("C:\\Users\\w0939\\AppData\\Roaming\\Microsoft\\Internet Explorer\\Quick Launch");
+//            String cmdStr ="cmd /c notepad.exe";
+//            Runtime.getRuntime().exec(cmdStr);
+//            process.waitFor();
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_WINDOWS);
+            robot.keyPress(KeyEvent.VK_D);
+            robot.keyRelease(KeyEvent.VK_WINDOWS);
+            robot.keyRelease(KeyEvent.VK_D);
+            robot.keyPress(KeyEvent.VK_CONTROL);;
+            robot.keyPress(KeyEvent.VK_ALT);
+            robot.keyPress(KeyEvent.VK_D);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyRelease(KeyEvent.VK_ALT);
+            robot.keyRelease(KeyEvent.VK_D);
             if(GlobalContext.currentDownloadingArg!=null) {
                 new Thread() {
                     public void run() {
@@ -49,6 +67,7 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                             IOUtils.readLines(finishInput);
                             finishInput.close();
                             //GlobalContext.delayBackUntil=-1;
+                            
                         } catch (Exception e) {
                             DebugUtils.log(
                                     Level.SEVERE, "fail to report terminated status");

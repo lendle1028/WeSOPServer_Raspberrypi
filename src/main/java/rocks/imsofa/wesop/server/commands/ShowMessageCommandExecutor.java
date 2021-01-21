@@ -1,6 +1,12 @@
 package rocks.imsofa.wesop.server.commands;
 
 import java.io.File;
+import java.util.Optional;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import rocks.imsofa.wesop.server.DebugUtils;
 
 /**
  * Created by lendle on 2014/11/24.
@@ -19,8 +25,19 @@ public class ShowMessageCommandExecutor extends AbstractCommandExecutor{
     @Override
     public Object _execute(Command command) throws Exception {
         //TODO: implement a way to pop up message for end users
-//        String title= (String) command.getParams().get("title");
-//        String message= (String) command.getParams().get("message");
+        String title= (String) command.getParams().get("title");
+        String message= (String) command.getParams().get("message");
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run(){
+                Alert alert = new Alert(AlertType.INFORMATION);
+    //            alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText(title);
+                alert.setContentText(message);
+                alert.showAndWait();
+            }  
+        });
+        
 //        Intent i = new Intent(context, ShowMessageActivity.class);
 //        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        i.putExtra("message", message);
