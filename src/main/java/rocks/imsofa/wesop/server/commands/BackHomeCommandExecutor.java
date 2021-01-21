@@ -7,6 +7,7 @@ import java.io.File;
 import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.util.logging.Level;
+import org.apache.commons.lang.SystemUtils;
 import rocks.imsofa.wesop.server.DebugUtils;
 import rocks.imsofa.wesop.server.GlobalContext;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
@@ -42,22 +43,26 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                 GlobalContext.readerProcess=null;
             }
             //TODO: implement a way to back to home screen (close and hide all opened applications)
-//            DebugUtils.log("Notepad should now open.");
-//            File dir = new File("C:\\Users\\w0939\\AppData\\Roaming\\Microsoft\\Internet Explorer\\Quick Launch");
-//            String cmdStr ="cmd /c notepad.exe";
-//            Runtime.getRuntime().exec(cmdStr);
-//            process.waitFor();
+//            String os = System.getProperty("os.name").toLowerCase();
             Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_WINDOWS);
-            robot.keyPress(KeyEvent.VK_D);
-            robot.keyRelease(KeyEvent.VK_WINDOWS);
-            robot.keyRelease(KeyEvent.VK_D);
-            robot.keyPress(KeyEvent.VK_CONTROL);;
-            robot.keyPress(KeyEvent.VK_ALT);
-            robot.keyPress(KeyEvent.VK_D);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyRelease(KeyEvent.VK_ALT);
-            robot.keyRelease(KeyEvent.VK_D);
+            if (SystemUtils.IS_OS_LINUX){
+                robot.keyPress(KeyEvent.VK_CONTROL);;
+                robot.keyPress(KeyEvent.VK_ALT);
+                robot.keyPress(KeyEvent.VK_D);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                robot.keyRelease(KeyEvent.VK_ALT);
+                robot.keyRelease(KeyEvent.VK_D);
+//                DebugUtils.log("this os is LINUX");
+            };
+            if (SystemUtils.IS_OS_WINDOWS){
+                robot.keyPress(KeyEvent.VK_WINDOWS);
+                robot.keyPress(KeyEvent.VK_D);
+                robot.keyRelease(KeyEvent.VK_WINDOWS);
+                robot.keyRelease(KeyEvent.VK_D);
+//                DebugUtils.log("this os is WINDOWS");
+            }
+//            DebugUtils.log(os);
+
             if(GlobalContext.currentDownloadingArg!=null) {
                 new Thread() {
                     public void run() {
