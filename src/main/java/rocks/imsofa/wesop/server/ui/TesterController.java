@@ -56,14 +56,14 @@ public class TesterController {
 
     @FXML
     private TextField textFilePath;
-    
+
     @FXML
     private VBox wisStatusContainer;
-    
+
     @FXML
     private ComboBox<String> comboboxClients;
-    
-    private ObservableList<String> clientIps=FXCollections.observableArrayList();
+
+    private ObservableList<String> clientIps = FXCollections.observableArrayList();
 
     @FXML
     void onFileChooserButtonClicked(ActionEvent event) {
@@ -84,8 +84,11 @@ public class TesterController {
     @FXML
     void onOpenRemoteFileGOButtonClicked(ActionEvent event) {
         try {
-            OpenRemoteFileAction openRemoteFileAction = new OpenRemoteFileAction();
-            openRemoteFileAction.execute(Global.servletContext, "127.0.0.1", Constants.SERVER_PORT, textFilePath.getText(), 1, false);
+            String clientIp = this.comboboxClients.getSelectionModel().getSelectedItem();
+            if (clientIp != null) {
+                OpenRemoteFileAction openRemoteFileAction = new OpenRemoteFileAction();
+                openRemoteFileAction.execute(Global.servletContext, clientIp, Constants.SERVER_PORT, textFilePath.getText(), 1, false);
+            }
         } catch (Exception ex) {
             Logger.getLogger(TesterController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,10 +171,10 @@ public class TesterController {
 
     protected void sendCommand(Command command) {
         try {
-            if(this.comboboxClients.getSelectionModel().getSelectedItem()==null){
+            if (this.comboboxClients.getSelectionModel().getSelectedItem() == null) {
                 return;
             }
-            String clientIp=this.comboboxClients.getSelectionModel().getSelectedItem();
+            String clientIp = this.comboboxClients.getSelectionModel().getSelectedItem();
             if (command.getParams() == null) {
                 command.setParams(new HashMap<String, Object>());
             }
@@ -184,11 +187,11 @@ public class TesterController {
             Logger.getLogger(TesterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     public void initialize() {
         comboboxClients.setItems(clientIps);
-        ClientStatusMonitoringThread clientStatusMonitoringThread=new ClientStatusMonitoringThread(clientIps, wisStatusContainer);
+        ClientStatusMonitoringThread clientStatusMonitoringThread = new ClientStatusMonitoringThread(clientIps, wisStatusContainer);
         clientStatusMonitoringThread.start();
     }
 }
