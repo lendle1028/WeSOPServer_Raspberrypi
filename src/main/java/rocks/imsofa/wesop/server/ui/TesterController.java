@@ -69,7 +69,8 @@ public class TesterController {
     void onFileChooserButtonClicked(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
         );
         File selectedFile = fileChooser.showOpenDialog(textFilePath.getScene().getWindow());
         if (selectedFile != null) {
