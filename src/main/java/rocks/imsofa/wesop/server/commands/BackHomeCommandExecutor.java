@@ -61,6 +61,10 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                 robot.keyRelease(KeyEvent.VK_D);
 //                DebugUtils.log("this os is WINDOWS");
             }
+            if (GlobalContext.currentOpenedFileProcess != null){
+                GlobalContext.currentOpenedFileProcess.destroy();
+                GlobalContext.currentOpenedFileProcess = null;
+            }
 //            DebugUtils.log(os);
 
             if(GlobalContext.currentDownloadingArg!=null) {
