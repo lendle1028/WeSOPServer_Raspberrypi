@@ -40,7 +40,22 @@ public class OpenRemoteFileAction {
        
         }
         ///////////////////////////////////////////
-        String serverIP = "127.0.0.1";
+        
+        //get intranet ip
+        String serverIP = "localhost";
+        Enumeration<NetworkInterface> enumeration=NetworkInterface.getNetworkInterfaces();
+        outer: while(enumeration.hasMoreElements()){
+            NetworkInterface networkInterface=enumeration.nextElement();
+            Enumeration<InetAddress> addresses= networkInterface.getInetAddresses();
+            while(addresses.hasMoreElements()){
+                InetAddress address=addresses.nextElement();
+                //DebugUtils.log(address.getHostAddress());
+                if(address.getHostAddress().startsWith("192") || address.getHostAddress().startsWith("10")){
+                    serverIP=address.getHostAddress();
+                    break outer;
+                }
+            }
+        }
         final Command command = new Command();
         command.setGroupName("com.example.lendle.esopserver.commands");
         command.setName("openRemoteFile");

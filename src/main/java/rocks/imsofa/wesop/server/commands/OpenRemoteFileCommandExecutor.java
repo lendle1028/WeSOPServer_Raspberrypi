@@ -21,6 +21,7 @@ import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileCallback;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileTask;
 import rocks.imsofa.wesop.server.util.PathUtil;
+import rocks.imsofa.wesop.server.util.desktop.DesktopPeer;
 
 /**
  * Created by lendle on 2014/11/24.
@@ -101,7 +102,12 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
                             try {
                                 //TODO: (done)implement a way to download and open a file with system default viewer applications
                                 if(arg.isValid()){
-                                    Desktop.getDesktop().open(file);
+                                    //Desktop.getDesktop().open(file);
+                                    if(GlobalContext.currentOpenedFileProcess!=null){
+                                        GlobalContext.currentOpenedFileProcess.destroy();
+                                        GlobalContext.currentOpenedFileProcess=null;
+                                    }
+                                    GlobalContext.currentOpenedFileProcess=DesktopPeer.getInstance().open(file);
                                 }
 //                                if(arg.isValid()) {
 //                                    DebugUtils.log("download complete, executing......");

@@ -59,6 +59,7 @@ public class GlobalContext {
     public static Process readerProcess=null;
     public static DebugUtils.UILogger uILogger=null;
     public static ExecutorService executorService=null;
+    public static Process currentOpenedFileProcess=null;
 
     /**
      * syncTick is used to sync async state broadcast
