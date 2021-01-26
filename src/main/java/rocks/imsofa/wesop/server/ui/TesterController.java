@@ -70,6 +70,9 @@ public class TesterController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                new FileChooser.ExtensionFilter("IMAGE Files", "*.png;*.jpg;*.jepg"),
+                new FileChooser.ExtensionFilter("GIF Files", "*.gif"),
+                new FileChooser.ExtensionFilter("VIDEO Files", "*.mp4;*.wmv"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
         File selectedFile = fileChooser.showOpenDialog(textFilePath.getScene().getWindow());

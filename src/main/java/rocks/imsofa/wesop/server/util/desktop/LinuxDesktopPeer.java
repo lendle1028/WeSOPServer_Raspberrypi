@@ -32,7 +32,11 @@ public class LinuxDesktopPeer extends DesktopPeer{
             InputStream input=process.getInputStream();
             String ret=IOUtils.toString(input, "utf-8");
             String applicationName=ret.substring(0, ret.indexOf("."));
-            System.out.println(applicationName);
+            if("vlc".equals(applicationName)){
+                return Arrays.asList(applicationName, "--loop","--fullscreen", file.getCanonicalPath());
+            }else if("ristretto".equals(applicationName)){
+                return Arrays.asList(applicationName, "-f", file.getCanonicalPath());
+            }
             return Arrays.asList(applicationName, file.getCanonicalPath());
         } catch (IOException ex) {
             Logger.getLogger(LinuxDesktopPeer.class.getName()).log(Level.SEVERE, null, ex);
