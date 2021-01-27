@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class CheckNetworkStatusThread extends Thread {
 
     public void run(){
         while(running){
+            Date startDate = new Date( );
             try{
                 Thread.sleep(interval);
                 //DebugUtils.log("server ip: "+GlobalContext.serverIP);
@@ -58,29 +60,24 @@ public class CheckNetworkStatusThread extends Thread {
                     //TODO: re-implement connectivity check
                     //reboot servers, reset central server ip
                     //check network connectivity at first
-                    /*ConnectivityManager cm =
-                            (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if(cm==null){
-                        DebugUtils.log("cm=null");
-                        Thread.sleep(1000);
-                        continue;
-                    }
-                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                    if(activeNetwork==null){
-                        DebugUtils.log("activeNetwork=null");
-                        Thread.sleep(1000);
-                        continue;
-                    }
-                    if(activeNetwork!=null && activeNetwork.isConnected()) {
+                    if (GlobalContext.serverIP != null){
                         DebugUtils.log("recovery for "+ IDUtil.getId()+"......");
                         GlobalContext.serverIP = null;
                         GlobalContext.server.stopServers();
                         Thread.sleep(1000);
                         GlobalContext.server.startServers();
                         recoveryNeeded=false;
-                    }else {
+                    }
+                    else{
+                        long startTime = startDate.getTime();
+                        long currentTime = new Date().getTime();
+                        long diff = currentTime - startTime;
+                        if((diff/(1000 * 60)) > 1){
+                            DebugUtils.log("network problem for "+ IDUtil.getId()+"......");
+                        }
+                        Thread.sleep(1000);
                         continue;
-                    }*/
+                    }
                 }
 
                 interval=5000;

@@ -23,7 +23,8 @@ public class KeepAliveThread extends Thread{
                 try {
                     InputStream finishInput = GlobalContext.keepAliveURL.openStream();
                     //TODO: readLines must be replaced
-                    IOUtils.readLines(finishInput);
+//                    IOUtils.readLines(finishInput);
+                    IOUtils.readLines(finishInput, "utf-8");
                     finishInput.close();
                     //GlobalContext.delayBackUntil=-1;
                 } catch (Exception e) {
