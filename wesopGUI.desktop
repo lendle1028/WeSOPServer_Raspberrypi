@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=WeSOP
+Type=Application
+Encoding=UTF-8
+Comment=Launch WeSOP
+Exec=/opt/wesop/run.sh
+Icon=/opt/wesop/icon.png
+Terminal=false
+Categories=net
