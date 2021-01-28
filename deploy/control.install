@@ -1,4 +1,4 @@
-PACKAGE="rocks-imsofa"
+PACKAGE="wesop"
 VERSION="1.00"
 SECTION="net"
 ARCHITECTURE="all"
