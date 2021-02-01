@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import rocks.imsofa.wesop.server.DebugUtils;
+import rocks.imsofa.wesop.server.GlobalContext;
 
 /**
  * handle the id maintenance functionality for this machine
@@ -39,6 +40,7 @@ public class IDUtil {
                 } else {
                     id = FileUtils.readFileToString(idFile, "utf-8");
                 }
+                GlobalContext.MACHINE_ID=id;
                 return id;
             } catch (IOException ex) {
                 DebugUtils.log(Level.SEVERE, ex.getMessage(), true);

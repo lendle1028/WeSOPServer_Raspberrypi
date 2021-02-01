@@ -14,21 +14,6 @@ import rocks.imsofa.wesop.server.util.IDUtil;
  * Created by lendle on 2015/1/19.
  */
 public class GlobalContext {
-    static{
-        try {
-            //generate machine id
-//            File wesopServerHome=getWeSOPServerHome();
-//            File idFile=new File(wesopServerHome, ".id");
-//            if(!idFile.exists()){
-//                FileUtils.write(idFile, ""+UUID.randomUUID().toString(), "utf-8");
-//            }
-//            MACHINE_ID=FileUtils.readFileToString(idFile, "utf-8");
-            MACHINE_ID=IDUtil.getId();
-        } catch (Exception ex) {
-            Logger.getLogger(GlobalContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     public static Server server=null;
     private static long syncTick=0;
 
