@@ -3,9 +3,7 @@ package rocks.imsofa.wesop.server.ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.IOUtils;
@@ -64,7 +63,29 @@ public class TesterController {
     private ComboBox<String> comboboxClients;
 
     private ObservableList<String> clientIps = FXCollections.observableArrayList();
-
+    
+    @FXML
+    private ToggleButton buttonPressureTestOpenRemote;
+    
+    private OpenRemotePressureTestThread openRemotePressureTestThread=null;
+    
+    @FXML
+    void onPressureTestOpenRemote(ActionEvent event) {
+        if(openRemotePressureTestThread!=null){
+            //stop previous pressure test
+            openRemotePressureTestThread.shutdown();
+            openRemotePressureTestThread=null;
+        }
+        if(buttonPressureTestOpenRemote.isSelected()){
+            //do pressure test
+            String clientIp = this.comboboxClients.getSelectionModel().getSelectedItem();
+            if (clientIp != null) {
+                openRemotePressureTestThread=new OpenRemotePressureTestThread(clientIp, textFilePath.getText(), 5000);
+                openRemotePressureTestThread.start();
+            }
+        }
+    }
+    
     @FXML
     void onFileChooserButtonClicked(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
