@@ -94,6 +94,8 @@ public class CheckNetworkStatusThread extends Thread {
                         //reset server ip
                         GlobalContext.serverIP = null;
                         
+                    }else{
+                        serverlastSeen=System.currentTimeMillis();
                     }
                     recoveryNeeded = false;
                     /*ConnectivityManager cm =
