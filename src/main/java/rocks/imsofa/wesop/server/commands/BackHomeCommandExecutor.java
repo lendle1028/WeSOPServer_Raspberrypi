@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.util.logging.Level;
 import org.apache.commons.lang.SystemUtils;
+import rocks.imsofa.wesop.server.Constants;
 import rocks.imsofa.wesop.server.DebugUtils;
 import rocks.imsofa.wesop.server.GlobalContext;
 import rocks.imsofa.wesop.server.tasks.downloadfile.DownloadFileArg;
@@ -66,7 +67,7 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
                 GlobalContext.currentOpenedFileProcess = null;
             }
 //            DebugUtils.log(os);
-
+            GlobalContext.status=Constants.STATUS_TERMINATED;
             if(GlobalContext.currentDownloadingArg!=null) {
                 new Thread() {
                     public void run() {

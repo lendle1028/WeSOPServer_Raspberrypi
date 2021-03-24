@@ -45,6 +45,7 @@ public class SayHelloUtil {
         GlobalContext.IP=ip;
         String dataString=new Gson().toJson(data);
         //multicast
+//        System.out.println(dataString);
         MulticastUtil.multicast("224.0.0.100", 5000, dataString);
         GlobalContext.helloFailed=false;
         //DebugUtils.log(dataString);
