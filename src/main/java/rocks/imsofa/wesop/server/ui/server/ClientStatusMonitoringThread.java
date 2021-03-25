@@ -64,8 +64,10 @@ public class ClientStatusMonitoringThread extends AbstractBroadcastMonitoringThr
             Label lastSeenLabel = new Label();
             lastSeenLabel.textProperty().bind(clientModel.getLastSeen());
 
-            HBox hbox = new HBox(idLabel, ipLabel, statusLabel, lastSeenLabel);
+            HBox hbox = new HBox(statusLabel, idLabel, ipLabel, lastSeenLabel);
             hbox.setSpacing(20);
+            hbox.setPrefWidth(500);
+            statusLabel.setPrefWidth(100);
             Platform.runLater(new Runnable() {
                 public void run() {
                     wisStatusContainer.getChildren().add(hbox);

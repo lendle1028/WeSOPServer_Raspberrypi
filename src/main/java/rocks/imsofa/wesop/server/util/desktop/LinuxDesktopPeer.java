@@ -20,28 +20,36 @@ import org.apache.commons.io.IOUtils;
  *
  * @author lendle
  */
-public class LinuxDesktopPeer extends DesktopPeer{
+public class LinuxDesktopPeer extends DesktopPeer {
 
     @Override
     public List<String> getCommandlineForOpen(File file) {
         try {
-            Path path=file.toPath();
-            String mimeType=Files.probeContentType(path);
-            ProcessBuilder pb=new ProcessBuilder("xdg-mime", "query", "default", mimeType);
-            Process process=pb.start();
-            InputStream input=process.getInputStream();
-            String ret=IOUtils.toString(input, "utf-8");
-            String applicationName=ret.substring(0, ret.indexOf("."));
-            if("vlc".equals(applicationName)){
-                return Arrays.asList(applicationName, "--loop","--fullscreen", file.getCanonicalPath());
-            }else if("ristretto".equals(applicationName)){
-                return Arrays.asList(applicationName, "-f", file.getCanonicalPath());
+            if (file.getName().toLowerCase().endsWith(".pdf")) {
+                return this.openPdf(file);
+            } else {
+                Path path = file.toPath();
+                String mimeType = Files.probeContentType(path);
+                ProcessBuilder pb = new ProcessBuilder("xdg-mime", "query", "default", mimeType);
+                Process process = pb.start();
+                InputStream input = process.getInputStream();
+                String ret = IOUtils.toString(input, "utf-8");
+                String applicationName = ret.substring(0, ret.indexOf("."));
+                if ("vlc".equals(applicationName)) {
+                    return Arrays.asList(applicationName, "--loop", "--fullscreen", file.getCanonicalPath());
+                } else if ("ristretto".equals(applicationName)) {
+                    return Arrays.asList(applicationName, "-f", file.getCanonicalPath());
+                }
+                return Arrays.asList(applicationName, file.getCanonicalPath());
             }
-            return Arrays.asList(applicationName, file.getCanonicalPath());
         } catch (IOException ex) {
             Logger.getLogger(LinuxDesktopPeer.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
-    
+
+    private List<String> openPdf(File file) {
+        return Arrays.asList("xpdf", file.getAbsolutePath(), "-fullscreen");
+    }
+
 }
