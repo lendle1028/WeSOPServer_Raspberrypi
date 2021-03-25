@@ -119,7 +119,7 @@ public class MainController implements DebugUtils.UILogger {
     }
     private static final int LOG_LIMIT = 500;
 
-    private synchronized void saveLog() throws IOException {
+    protected synchronized void saveLog() throws IOException {
         File logDir = new File("wesop_log");
         if (!logDir.exists() || !logDir.isDirectory()) {
             logDir.mkdirs();

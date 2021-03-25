@@ -42,12 +42,18 @@ public class Main_FX extends Application {
     public void start(Stage primaryStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main_FX.class.getResource("Main.fxml"));
+            MainController mainController=fxmlLoader.getController();
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             primaryStage.setTitle("WeSOP");
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    System.exit(0);
+                    try {
+                        mainController.saveLog();
+                        System.exit(0);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             });
             primaryStage.setScene(scene);
