@@ -25,7 +25,20 @@ public class LinuxDesktopPeer extends DesktopPeer {
     @Override
     public List<String> getCommandlineForOpen(File file) {
         try {
-            if (file.getName().toLowerCase().endsWith(".pdf")) {
+            String filename=file.getName().toLowerCase();
+            if(filename.endsWith(".bmp")){
+                return this.openBmp(file);
+            }
+            else if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) {
+                return this.openJpg(file);
+            } 
+            else if (filename.endsWith(".mp3")) {
+                return this.openMp3(file);
+            } 
+            else if (filename.endsWith(".mp4")) {
+                return this.openMp4(file);
+            } 
+            else if (filename.endsWith(".pdf")) {
                 return this.openPdf(file);
             } else {
                 Path path = file.toPath();
@@ -52,4 +65,19 @@ public class LinuxDesktopPeer extends DesktopPeer {
         return Arrays.asList("xpdf", file.getAbsolutePath(), "-fullscreen");
     }
 
+    private List<String> openBmp(File file) {
+        return Arrays.asList("ristretto", file.getAbsolutePath(), "--fullscreen");
+    }
+    
+    private List<String> openJpg(File file) {
+        return Arrays.asList("ristretto", file.getAbsolutePath(), "--fullscreen");
+    }
+    
+    private List<String> openMp3(File file) {
+        return Arrays.asList("cvlc", "--loop", "--fullscreen", file.getAbsolutePath());
+    }
+
+    private List<String> openMp4(File file) {
+        return Arrays.asList("vlc", "--loop", "--fullscreen",file.getAbsolutePath());
+    }
 }
