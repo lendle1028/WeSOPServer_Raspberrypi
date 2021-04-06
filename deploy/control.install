@@ -1,5 +1,5 @@
 PACKAGE="wesop"
-VERSION="1.003"
+VERSION="1.004"
 SECTION="net"
 ARCHITECTURE="all"
 DEPENDENCIES="ristretto, xpdf, default-jdk, openjfx"
