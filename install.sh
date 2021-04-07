@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 mkdir ~/.wesop
-copy WeSOPServer-1.004-jar-with-dependencies.jar ~/.wesop/
+copy WeSOPServer-1.005-jar-with-dependencies.jar ~/.wesop/
 copy ./run.sh ~/.wesop/
 sudo copy wesop.desktop /etc/xdg/autostart
 sudo apt-get update
