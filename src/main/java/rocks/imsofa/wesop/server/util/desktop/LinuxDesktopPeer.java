@@ -66,11 +66,11 @@ public class LinuxDesktopPeer extends DesktopPeer {
     }
 
     private List<String> openBmp(File file) {
-        return Arrays.asList("ristretto", file.getAbsolutePath(), "--fullscreen");
+        return Arrays.asList("feh", "-Z", "-F", file.getAbsolutePath());
     }
     
     private List<String> openJpg(File file) {
-        return Arrays.asList("ristretto", file.getAbsolutePath(), "--fullscreen");
+        return Arrays.asList("feh", "-Z", "-F", file.getAbsolutePath());
     }
     
     private List<String> openMp3(File file) {
