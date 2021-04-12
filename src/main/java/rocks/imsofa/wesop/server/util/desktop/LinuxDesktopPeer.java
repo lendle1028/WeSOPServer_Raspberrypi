@@ -40,7 +40,11 @@ public class LinuxDesktopPeer extends DesktopPeer {
             } 
             else if (filename.endsWith(".pdf")) {
                 return this.openPdf(file);
-            } else {
+            } 
+            else if (filename.endsWith(".doc") || filename.endsWith(".docx") || filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+                return this.openOffice(file);
+            } 
+            else {
                 Path path = file.toPath();
                 String mimeType = Files.probeContentType(path);
                 ProcessBuilder pb = new ProcessBuilder("xdg-mime", "query", "default", mimeType);
@@ -79,5 +83,9 @@ public class LinuxDesktopPeer extends DesktopPeer {
 
     private List<String> openMp4(File file) {
         return Arrays.asList("vlc", "--loop", "--fullscreen",file.getAbsolutePath());
+    }
+    
+    private List<String> openOffice(File file) {
+        return Arrays.asList("libreoffice","--norestore", file.getAbsolutePath());
     }
 }

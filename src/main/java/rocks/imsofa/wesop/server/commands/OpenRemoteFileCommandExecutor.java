@@ -26,7 +26,7 @@ import rocks.imsofa.wesop.server.util.desktop.DesktopPeer;
 /**
  * Created by lendle on 2014/11/24.
  */
-public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
+public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor {
 
     public OpenRemoteFileCommandExecutor() {
     }
@@ -39,46 +39,54 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
 
     @Override
     public synchronized Object _execute(Command command) throws Exception {
-        GlobalContext.delayBackUntil=System.currentTimeMillis()+10000;
+        GlobalContext.delayBackUntil = System.currentTimeMillis() + 10000;
 
-        final String fileURLString=(String) command.getParams().get("fileURL");
-        final String finishURLString=(String) command.getParams().get("finishURL");
-        final String playStartReportURLString=(String) command.getParams().get("playStartReportURL");
-        final String terminatedReportURLString=(String) command.getParams().get("terminatedReportURL");
-        final String mimeType=(String) command.getParams().get("mimeType");
-        final String flipURL= (String) command.getParams().get("flipURL");
-        final long lastModified= Long.valueOf(""+command.getParams().get("lastModified"));
-        final int numTotalParts=Integer.valueOf(""+command.getParams().get("numParts"));
-        final long crc=Long.valueOf(""+command.getParams().get("crc"));
-        final int page=Double.valueOf(""+command.getParams().get("page")).intValue();
+        final String fileURLString = (String) command.getParams().get("fileURL");
+        final String finishURLString = (String) command.getParams().get("finishURL");
+        final String playStartReportURLString = (String) command.getParams().get("playStartReportURL");
+        final String terminatedReportURLString = (String) command.getParams().get("terminatedReportURL");
+        final String mimeType = (String) command.getParams().get("mimeType");
+        final String flipURL = (String) command.getParams().get("flipURL");
+        final long lastModified = Long.valueOf("" + command.getParams().get("lastModified"));
+        final int numTotalParts = Integer.valueOf("" + command.getParams().get("numParts"));
+        final long crc = Long.valueOf("" + command.getParams().get("crc"));
+        final int page = Double.valueOf("" + command.getParams().get("page")).intValue();
 
-        GlobalContext.lastPlayFileTime=lastModified;
-        GlobalContext.downloadingTotalParts=numTotalParts;
-
+        GlobalContext.lastPlayFileTime = lastModified;
+        GlobalContext.downloadingTotalParts = numTotalParts;
+        /**
+         * if there is existing process, shutdown the process
+         */
+        if (GlobalContext.readerProcess != null) {
+            GlobalContext.readerProcess.destroy();
+            GlobalContext.readerProcess = null;
+        }
 
         //clean files
         try {
             File wesopFolder = PathUtil.getSOPFileFolder();
             File[] files = wesopFolder.listFiles();
             for (File file : files) {
-                if(file.lastModified()<(System.currentTimeMillis()-7*24*60*60*1000)) {
+                if (file.lastModified() < (System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000)) {
                     FileUtils.deleteQuietly(file);
                 }
             }
-        }catch(Exception e){throw e;}
+        } catch (Exception e) {
+            throw e;
+        }
 
-        sequentialTaskThread.addTask(new SequentialTaskThread.Task(){
+        sequentialTaskThread.addTask(new SequentialTaskThread.Task() {
 
             @Override
             public void execute(final TaskExecutionCallback callback) {
-                GlobalContext.flipURL=flipURL;
-                
+                GlobalContext.flipURL = flipURL;
+
                 try {
                     URL fileURL = new URL(fileURLString);
-                    URL finishURL=new URL(finishURLString);
-                    URL playStartReportURL=new URL(playStartReportURLString);
-                    URL terminatedReportURL=new URL(terminatedReportURLString);
-                    final SequentialTaskThread.Task self=this;
+                    URL finishURL = new URL(finishURLString);
+                    URL playStartReportURL = new URL(playStartReportURLString);
+                    URL terminatedReportURL = new URL(terminatedReportURLString);
+                    final SequentialTaskThread.Task self = this;
                     //String fileName= fileURL.getFile().substring(fileURL.getFile().indexOf("=")+1, fileURL.getFile().lastIndexOf("&"));
                     List<NameValuePair> params = URLEncodedUtils.parse(new URI(fileURL.toString()), "utf-8");
                     String _fileName = null, _page = null;
@@ -90,24 +98,24 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
                             _page = param.getValue();
                         }
                     }
-                    final String fileName = UUID.randomUUID().toString()+
-                            Constants.FILE_NAME_PART_SEPARATOR +
-                            lastModified+
-                            Constants.FILE_NAME_PART_SEPARATOR+
-                            _fileName;
+                    final String fileName = UUID.randomUUID().toString()
+                            + Constants.FILE_NAME_PART_SEPARATOR
+                            + lastModified
+                            + Constants.FILE_NAME_PART_SEPARATOR
+                            + _fileName;
                     String fileDirectory = PathUtil.getSOPFileFolder().getAbsolutePath() + "/";
-                    
-                    DownloadFileCallback downloadFileCallback=new DownloadFileCallback() {
+
+                    DownloadFileCallback downloadFileCallback = new DownloadFileCallback() {
                         public void process(DownloadFileArg arg, final File file) throws Exception {
                             try {
                                 //TODO: (done)implement a way to download and open a file with system default viewer applications
-                                if(arg.isValid()){
+                                if (arg.isValid()) {
                                     //Desktop.getDesktop().open(file);
-                                    if(GlobalContext.currentOpenedFileProcess!=null){
+                                    if (GlobalContext.currentOpenedFileProcess != null) {
                                         GlobalContext.currentOpenedFileProcess.destroy();
-                                        GlobalContext.currentOpenedFileProcess=null;
+                                        GlobalContext.currentOpenedFileProcess = null;
                                     }
-                                    GlobalContext.currentOpenedFileProcess=DesktopPeer.getInstance().open(file);
+                                    GlobalContext.currentOpenedFileProcess = DesktopPeer.getInstance().open(file);
                                 }
 //                                if(arg.isValid()) {
 //                                    DebugUtils.log("download complete, executing......");
@@ -184,15 +192,15 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
                     DownloadFileArg arg = new DownloadFileArg(fileURL, finishURL, playStartReportURL, terminatedReportURL, mimeType, _fileName, fileName, lastModified, numTotalParts, crc, downloadFileCallback);
                     arg.setPage(page);
                     //track the downloading task
-                    if(GlobalContext.currentDownloadingArg!=null){
+                    if (GlobalContext.currentDownloadingArg != null) {
                         GlobalContext.currentDownloadingArg.setValid(false);
                     }
-                    GlobalContext.currentDownloadingArg=arg;
+                    GlobalContext.currentDownloadingArg = arg;
                     //check if download is needed or not
                     new DownloadFileTask().execute(arg);
-                }catch(Exception e){
+                } catch (Exception e) {
                     callback.onFailed(this);
-                    DebugUtils.log(""+e+":"+e.getMessage());
+                    DebugUtils.log("" + e + ":" + e.getMessage());
                 }
             }
         });
@@ -200,4 +208,3 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor{
         return null;
     }
 }
-
