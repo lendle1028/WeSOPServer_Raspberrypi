@@ -227,6 +227,28 @@
                         </javafx.scene.layout.GridPane>
                     </content>
                 </Tab>
+                <Tab text="Shutdown">
+                    <content>
+                        <javafx.scene.layout.GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                            </rowConstraints>
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onShutdownGOButtonClicked" text="GO" GridPane.rowIndex="2" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </javafx.scene.layout.GridPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </center>

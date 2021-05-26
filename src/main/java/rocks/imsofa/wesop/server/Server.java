@@ -61,6 +61,7 @@ public class Server {
         this.commandDispatcher.addExecutor(new BackHomeCommandExecutor());
         this.commandDispatcher.addExecutor(new ShowMessageCommandExecutor());
         this.commandDispatcher.addExecutor(new SetStatusCommandExecutor());
+        this.commandDispatcher.addExecutor(new ShutdownCommandExecutor());
     }
 
     public void stop() throws Exception {

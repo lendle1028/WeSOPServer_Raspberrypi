@@ -70,6 +70,9 @@ public class TesterController {
     private OpenRemotePressureTestThread openRemotePressureTestThread=null;
     
     @FXML
+    private TextField textCommand;
+    
+    @FXML
     void onPressureTestOpenRemote(ActionEvent event) {
         if(openRemotePressureTestThread!=null){
             //stop previous pressure test
@@ -212,6 +215,16 @@ public class TesterController {
             Logger.getLogger(TesterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    void onShutdownGOButtonClicked(ActionEvent event) {
+        final Command command = new Command();
+        command.setGroupName("com.example.lendle.esopserver.commands");
+        command.setName("shutdown");
+        command.getParams().put("password", "imsofarocks");
+        this.sendCommand(command);
+    }
+    
 
     @FXML
     public void initialize() {
