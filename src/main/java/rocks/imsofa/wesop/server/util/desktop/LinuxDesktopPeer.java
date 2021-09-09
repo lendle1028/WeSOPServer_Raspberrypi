@@ -82,7 +82,7 @@ public class LinuxDesktopPeer extends DesktopPeer {
     }
 
     private List<String> openMp4(File file) {
-        return Arrays.asList("vlc", "--loop", "--fullscreen",file.getAbsolutePath());
+        return Arrays.asList("vlc", "--fullscreen",file.getAbsolutePath());
 //        return Arrays.asList("mplayer", "-fs", "-loop", "0", file.getAbsolutePath());
     }
     
