@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -22,29 +23,47 @@ import org.apache.commons.io.IOUtils;
  */
 public class LinuxDesktopPeer extends DesktopPeer {
 
+    static {
+        final File tempDirectory = new File("/opt/wesop/temp");
+        if (!tempDirectory.exists()) {
+            tempDirectory.mkdir();
+        }
+        Thread tempFileDeleteThread = new Thread() {
+            public void run() {
+                while (true) {
+                    try {
+                        File [] files=tempDirectory.listFiles();
+                        for(File file : files){
+                            FileUtils.deleteQuietly(file);
+                        }
+                        Thread.sleep(24*60 * 60 * 1000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        };
+        tempFileDeleteThread.setDaemon(true);
+        tempFileDeleteThread.start();
+    }
+
     @Override
     public List<String> getCommandlineForOpen(File file) {
         try {
-            String filename=file.getName().toLowerCase();
-            if(filename.endsWith(".bmp")){
+            String filename = file.getName().toLowerCase();
+            if (filename.endsWith(".bmp")) {
                 return this.openBmp(file);
-            }
-            else if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) {
+            } else if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) {
                 return this.openJpg(file);
-            } 
-            else if (filename.endsWith(".mp3")) {
+            } else if (filename.endsWith(".mp3")) {
                 return this.openMp3(file);
-            } 
-            else if (filename.endsWith(".mp4")) {
+            } else if (filename.endsWith(".mp4")) {
                 return this.openMp4(file);
-            } 
-            else if (filename.endsWith(".pdf")) {
+            } else if (filename.endsWith(".pdf")) {
                 return this.openPdf(file);
-            } 
-            else if (filename.endsWith(".doc") || filename.endsWith(".docx") || filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+            } else if (filename.endsWith(".doc") || filename.endsWith(".docx") || filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
                 return this.openOffice(file);
-            } 
-            else {
+            } else {
                 Path path = file.toPath();
                 String mimeType = Files.probeContentType(path);
                 ProcessBuilder pb = new ProcessBuilder("xdg-mime", "query", "default", mimeType);
@@ -72,21 +91,31 @@ public class LinuxDesktopPeer extends DesktopPeer {
     private List<String> openBmp(File file) {
         return Arrays.asList("feh", "-Z", "-F", file.getAbsolutePath());
     }
-    
+
     private List<String> openJpg(File file) {
         return Arrays.asList("feh", "-Z", "-F", file.getAbsolutePath());
     }
-    
+
     private List<String> openMp3(File file) {
         return Arrays.asList("cvlc", "--loop", "--fullscreen", file.getAbsolutePath());
     }
 
     private List<String> openMp4(File file) {
-        return Arrays.asList("vlc", "--fullscreen",file.getAbsolutePath());
-//        return Arrays.asList("mplayer", "-fs", "-loop", "0", file.getAbsolutePath());
+        try {
+            //        return Arrays.asList("vlc", "--fullscreen",file.getAbsolutePath());
+            //        return Arrays.asList("mplayer", "-fs", "-loop", "0", file.getAbsolutePath());
+            //        return Arrays.asList("mpv", "--loop-file=inf", "--fullscreen=yes", "--no-stop-screensaver", file.getAbsolutePath());
+
+            File newFile = File.createTempFile("tmp", ".mp4", new File("/opt/wesop/temp"));
+            FileUtils.copyFile(file, newFile);
+            return Arrays.asList("/opt/wesop/launchMp4.sh", newFile.getAbsolutePath());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
-    
+
     private List<String> openOffice(File file) {
-        return Arrays.asList("libreoffice","--norestore", file.getAbsolutePath());
+        return Arrays.asList("libreoffice", "--norestore", file.getAbsolutePath());
     }
 }

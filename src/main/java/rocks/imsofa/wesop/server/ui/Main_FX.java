@@ -105,7 +105,7 @@ public class Main_FX extends Application {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    System.out.println("hide");
+//                                    System.out.println("hide");
                                     primaryStage.hide();
                                 }
                             });
