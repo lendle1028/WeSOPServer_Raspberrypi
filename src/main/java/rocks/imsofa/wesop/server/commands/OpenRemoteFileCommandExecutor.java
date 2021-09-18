@@ -65,8 +65,8 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor {
         if(GlobalContext.currentOpenedFileProcess!=null){
             GlobalContext.currentOpenedFileProcess.destroy();
             GlobalContext.currentOpenedFileProcess=null;
-            ProcessBuilder pb=new ProcessBuilder("/opt/wesop/stopMp4.sh");
-            pb.start();
+            //ProcessBuilder pb=new ProcessBuilder("/opt/wesop/stopMp4.sh");
+            //pb.start();
         }
         //clean files
         try {

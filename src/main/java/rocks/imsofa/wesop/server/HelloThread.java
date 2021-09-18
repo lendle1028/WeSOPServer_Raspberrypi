@@ -27,7 +27,14 @@ public class HelloThread extends Thread{
                     break;
                 }
                 SayHelloUtil.sayHello();
-                Thread.sleep(5000);
+                long sleepInterval=5000;
+                if(GlobalContext.serverIP!=null){
+                    sleepInterval=10000+(long)(Math.random()*5000);
+                }
+                if(GlobalContext.status==Constants.STATUS_PLAYING){
+                    sleepInterval=30000+(long)(Math.random()*5000);
+                }
+                Thread.sleep(sleepInterval);
             }catch(Exception e){
                 DebugUtils.log(e+":"+e.getMessage());
             }

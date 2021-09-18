@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>rocks.imsofa.wesop</groupId>
     <artifactId>WeSOPServer</artifactId>
-    <version>1.010</version>
+    <version>1.011</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

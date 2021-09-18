@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import rocks.imsofa.wesop.server.GlobalContext;
+import rocks.imsofa.wesop.server.ui.server.Global;
 
 /**
  *
@@ -23,6 +25,14 @@ public abstract class DesktopPeer {
             throw new IOException("cannot open file");
         }
         ProcessBuilder pb=new ProcessBuilder(commandline);
+        File errorLogFile=new File(GlobalContext.getWeSOPServerHome(), "desktopError.log");
+        File outputLogFile=new File(GlobalContext.getWeSOPServerHome(), "desktopOutput.log");
+//        pb=pb.redirectErrorStream(true);
+//        pb=pb.redirectError(file);
+//        pb=pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+        pb=pb.redirectError(errorLogFile);
+        pb=pb.redirectOutput(outputLogFile);
+        
         return pb.start();
     }
     public static DesktopPeer getInstance(){
