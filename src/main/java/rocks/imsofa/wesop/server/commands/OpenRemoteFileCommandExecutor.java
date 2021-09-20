@@ -63,10 +63,10 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor {
         }
         
         if(GlobalContext.currentOpenedFileProcess!=null){
-            GlobalContext.currentOpenedFileProcess.destroy();
+            GlobalContext.currentOpenedFileProcess.kill();
             GlobalContext.currentOpenedFileProcess=null;
-            //ProcessBuilder pb=new ProcessBuilder("/opt/wesop/stopMp4.sh");
-            //pb.start();
+            ProcessBuilder pb=new ProcessBuilder("/opt/wesop/stopMp4.sh");
+            pb.start();
         }
         //clean files
         try {
@@ -118,7 +118,7 @@ public class OpenRemoteFileCommandExecutor extends AbstractCommandExecutor {
                                 if (arg.isValid()) {
                                     //Desktop.getDesktop().open(file);
                                     if (GlobalContext.currentOpenedFileProcess != null) {
-                                        GlobalContext.currentOpenedFileProcess.destroy();
+                                        GlobalContext.currentOpenedFileProcess.kill();
                                         GlobalContext.currentOpenedFileProcess = null;
                                     }
                                     GlobalContext.currentOpenedFileProcess = DesktopPeer.getInstance().open(file);

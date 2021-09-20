@@ -1,5 +1,5 @@
 [Desktop Entry]
 Type=Application
 Name=WeSOP
-Exec=java -jar --module-path /usr/share/openjfx/lib --add-modules javafx.controls,javafx.graphics,javafx.fxml "/home/pi/Desktop/WeSOPServer-1.010-jar-with-dependencies.jar"
+Exec=java -jar --module-path /usr/share/openjfx/lib --add-modules javafx.controls,javafx.graphics,javafx.fxml "/home/pi/Desktop/WeSOPServer-1.011-jar-with-dependencies.jar"
 Name[en_US]=wesop

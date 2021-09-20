@@ -26,5 +26,10 @@ public class WindowsDesktopPeer extends DesktopPeer{
             return Arrays.asList("windows\\MPC-HCPortable\\MPC-HCPortable.exe", file.getAbsolutePath(), "/fullscreen");
         }
     }
+
+    @Override
+    protected DesktopProcess wrap2DesktopProcess(Process process, List<String> commandline) {
+        return new WindowsDesktopProcess(process);
+    }
     
 }

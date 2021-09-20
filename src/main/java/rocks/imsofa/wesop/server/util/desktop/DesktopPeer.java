@@ -19,7 +19,7 @@ import rocks.imsofa.wesop.server.ui.server.Global;
 public abstract class DesktopPeer {
     private static DesktopPeer instance=null;
     public abstract List<String> getCommandlineForOpen(File file);
-    public Process open(File file) throws IOException{
+    public DesktopProcess open(File file) throws IOException{
         List<String> commandline=new ArrayList<>(this.getCommandlineForOpen(file));
         if(commandline==null){
             throw new IOException("cannot open file");
@@ -33,8 +33,11 @@ public abstract class DesktopPeer {
         pb=pb.redirectError(errorLogFile);
         pb=pb.redirectOutput(outputLogFile);
         
-        return pb.start();
+        return this.wrap2DesktopProcess(pb.start(), commandline);
     }
+    
+    protected abstract DesktopProcess wrap2DesktopProcess(Process process, List<String> commandline);
+    
     public static DesktopPeer getInstance(){
         if(instance!=null){
             return instance;

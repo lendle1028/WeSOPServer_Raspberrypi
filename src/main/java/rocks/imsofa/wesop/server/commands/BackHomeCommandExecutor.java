@@ -3,7 +3,6 @@ package rocks.imsofa.wesop.server.commands;
 
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -63,7 +62,7 @@ public class BackHomeCommandExecutor extends AbstractCommandExecutor{
 //                DebugUtils.log("this os is WINDOWS");
             }
             if (GlobalContext.currentOpenedFileProcess != null){
-                GlobalContext.currentOpenedFileProcess.destroy();
+                GlobalContext.currentOpenedFileProcess.kill();
                 GlobalContext.currentOpenedFileProcess = null;
             }
 //            DebugUtils.log(os);

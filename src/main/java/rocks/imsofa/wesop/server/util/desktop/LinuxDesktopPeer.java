@@ -101,22 +101,27 @@ public class LinuxDesktopPeer extends DesktopPeer {
     }
 
     private List<String> openMp4(File file) {
-        return Arrays.asList("cvlc","--loop", "--fullscreen", file.getAbsolutePath());
-//        try {
-//            //        return Arrays.asList("vlc", "--fullscreen",file.getAbsolutePath());
-//            //        return Arrays.asList("mplayer", "-fs", "-loop", "0", file.getAbsolutePath());
-//            //        return Arrays.asList("mpv", "--loop-file=inf", "--fullscreen=yes", "--no-stop-screensaver", file.getAbsolutePath());
-//
-//            File newFile = File.createTempFile("tmp", ".mp4", new File("/opt/wesop/temp"));
-//            FileUtils.copyFile(file, newFile);
-//            return Arrays.asList("/opt/wesop/launchMp4.sh", newFile.getAbsolutePath());
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//        return null;
+//        return Arrays.asList("cvlc","--loop", "--fullscreen", file.getAbsolutePath());
+        try {
+            //        return Arrays.asList("vlc", "--fullscreen",file.getAbsolutePath());
+            //        return Arrays.asList("mplayer", "-fs", "-loop", "0", file.getAbsolutePath());
+            //        return Arrays.asList("mpv", "--loop-file=inf", "--fullscreen=yes", "--no-stop-screensaver", file.getAbsolutePath());
+
+            File newFile = File.createTempFile("tmp", ".mp4", new File("/opt/wesop/temp"));
+            FileUtils.copyFile(file, newFile);
+            return Arrays.asList("/opt/wesop/launchMp4.sh", newFile.getAbsolutePath());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     private List<String> openOffice(File file) {
         return Arrays.asList("libreoffice", "--norestore", file.getAbsolutePath());
+    }
+
+    @Override
+    protected DesktopProcess wrap2DesktopProcess(Process process, List<String> commandline) {
+        return new LinuxDesktopProcess(process, commandline);
     }
 }
