@@ -117,6 +117,10 @@ public class LinuxDesktopPeer extends DesktopPeer {
     }
 
     private List<String> openOffice(File file) {
+        String name=file.getName().toLowerCase();
+        if(name.endsWith("pptx") || name.endsWith("ppt")){
+            return Arrays.asList("libreoffice", "--norestore", "--impress", file.getAbsolutePath());
+        }
         return Arrays.asList("libreoffice", "--norestore", file.getAbsolutePath());
     }
 

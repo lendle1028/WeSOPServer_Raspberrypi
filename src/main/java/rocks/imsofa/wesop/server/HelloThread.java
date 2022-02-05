@@ -29,11 +29,11 @@ public class HelloThread extends Thread{
                 SayHelloUtil.sayHello();
                 long sleepInterval=5000;
                 if(GlobalContext.serverIP!=null){
-                    sleepInterval=10000+(long)(Math.random()*5000);
+                    sleepInterval=5000+(long)(Math.random()*1000);
                 }
-                if(GlobalContext.status==Constants.STATUS_PLAYING){
-                    sleepInterval=30000+(long)(Math.random()*5000);
-                }
+//                if(GlobalContext.status==Constants.STATUS_PLAYING){
+//                    sleepInterval=30000+(long)(Math.random()*5000);
+//                }
                 Thread.sleep(sleepInterval);
             }catch(Exception e){
                 DebugUtils.log(e+":"+e.getMessage());
