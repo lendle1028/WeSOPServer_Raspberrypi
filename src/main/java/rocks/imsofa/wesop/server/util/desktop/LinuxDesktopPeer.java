@@ -61,7 +61,7 @@ public class LinuxDesktopPeer extends DesktopPeer {
                 return this.openMp4(file);
             } else if (filename.endsWith(".pdf")) {
                 return this.openPdf(file);
-            } else if (filename.endsWith(".doc") || filename.endsWith(".docx") || filename.endsWith(".xls") || filename.endsWith(".xlsx")) {
+            } else if (filename.endsWith(".doc") || filename.endsWith(".docx") || filename.endsWith(".xls") || filename.endsWith(".xlsx") || filename.endsWith(".ppt") || filename.endsWith(".pptx")) {
                 return this.openOffice(file);
             } else {
                 Path path = file.toPath();
@@ -119,7 +119,7 @@ public class LinuxDesktopPeer extends DesktopPeer {
     private List<String> openOffice(File file) {
         String name=file.getName().toLowerCase();
         if(name.endsWith("pptx") || name.endsWith("ppt")){
-            return Arrays.asList("libreoffice", "--norestore", "--impress", file.getAbsolutePath());
+            return Arrays.asList("libreoffice", "--norestore", "--impress", "--show", file.getAbsolutePath());
         }
         return Arrays.asList("libreoffice", "--norestore", file.getAbsolutePath());
     }

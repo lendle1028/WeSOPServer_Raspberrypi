@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import rocks.imsofa.wesop.server.DebugUtils;
 import rocks.imsofa.wesop.server.GlobalContext;
 import rocks.imsofa.wesop.server.ui.server.Global;
 
@@ -21,6 +22,7 @@ public abstract class DesktopPeer {
     public abstract List<String> getCommandlineForOpen(File file);
     public DesktopProcess open(File file) throws IOException{
         List<String> commandline=new ArrayList<>(this.getCommandlineForOpen(file));
+        DebugUtils.log(String.join(" ", commandline));
         if(commandline==null){
             throw new IOException("cannot open file");
         }
