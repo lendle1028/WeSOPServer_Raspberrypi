@@ -22,6 +22,7 @@ public class Server {
     private DeleteFilesBroadCastReceiverThread deleteFilesBroadCastReceiverThread=null;
     private CheckDiskspaceStatusThread checkDiskspaceStatusThread=null;
     private KeepAliveThread keepAliveThread=null;
+    private ExternalEventFolderMonitoringThread externalEventFolderMonitoringThread=null;
 
     public Server() {
         this.commandDispatcher=new CommandDispatcher();
@@ -42,6 +43,9 @@ public class Server {
 
             this.keepAliveThread=new KeepAliveThread();
             this.keepAliveThread.start();
+            
+            this.externalEventFolderMonitoringThread=new ExternalEventFolderMonitoringThread();
+            this.externalEventFolderMonitoringThread.start();
         }
     }
 
@@ -77,6 +81,9 @@ public class Server {
         }
         if(this.keepAliveThread!=null){
             this.keepAliveThread.shutdown();
+        }
+        if(this.externalEventFolderMonitoringThread!=null){
+            this.externalEventFolderMonitoringThread.shutdown();
         }
     }
 

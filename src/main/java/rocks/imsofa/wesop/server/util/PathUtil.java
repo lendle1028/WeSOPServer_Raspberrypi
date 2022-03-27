@@ -23,4 +23,12 @@ public class PathUtil {
         }
         return file;
     }
+    public static File getExternalEventsFileFolder(){
+        File wesopServerHome=GlobalContext.getWeSOPServerHome();
+        File file=new File(wesopServerHome, "ExternalEvents");
+        if(file.exists()==false || !file.isDirectory()){
+            file.mkdirs();
+        }
+        return file;
+    }
 }

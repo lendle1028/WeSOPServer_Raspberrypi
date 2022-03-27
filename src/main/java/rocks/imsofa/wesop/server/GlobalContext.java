@@ -23,6 +23,7 @@ public class GlobalContext {
 //    public static Server server=null;
     public static String serverIP=null;
     public static URL keepAliveURL=null;
+    public static URL externalEventHandlerURL=null;
     /**
      * can be used to detect network failure
      */
